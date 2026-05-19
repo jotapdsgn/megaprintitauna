@@ -76,20 +76,20 @@ const HeroSection = () => {
       </div>
 
       {/* Content */}
-      <div className="container relative z-10 py-32">
+      <div className="container relative z-10 py-16 md:py-32">
         <div className="max-w-2xl">
           <div className="animate-slide-up">
-            <span className="inline-block gradient-primary text-primary-foreground text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full mb-6 shadow-lg">
+            <span className="inline-block gradient-primary text-primary-foreground text-[10px] md:text-xs font-semibold uppercase tracking-widest px-3 md:px-4 py-1 md:py-1.5 rounded-full mb-4 md:mb-6 shadow-lg">
               Papelaria & Impressão em Itaúna
             </span>
           </div>
 
-          <h1 className="animate-slide-up-delay-1 text-5xl md:text-7xl font-display font-bold text-secondary-foreground leading-tight mb-6">
+          <h1 className="animate-slide-up-delay-1 text-4xl sm:text-5xl md:text-7xl font-display font-bold text-secondary-foreground leading-tight mb-4 md:mb-6">
             Sua papelaria{" "}
             <span className="text-primary">completa</span>
           </h1>
 
-          <p className="animate-slide-up-delay-2 text-lg text-secondary-foreground/85 mb-10 max-w-lg leading-relaxed">
+          <p className="animate-slide-up-delay-2 text-base md:text-lg text-secondary-foreground/85 mb-6 md:mb-10 max-w-lg leading-relaxed">
             Tudo o que você precisa para escola, escritório e projetos criativos:
             cadernos, canetas, impressões, cópias e muito mais — com qualidade e preço justo.
           </p>
