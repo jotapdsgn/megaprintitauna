@@ -78,10 +78,19 @@ const CartSidebar = () => {
       formData.append("_captcha", "false");
       formData.append("_template", "table");
       
-      await fetch("https://formsubmit.co/ajax/megaprintitauna@gmail.com", {
+      const response = await fetch("https://formsubmit.co/ajax/megaprintitauna@gmail.com", {
         method: "POST",
         body: formData,
+        headers: {
+          Accept: "application/json",
+        },
       });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        console.error("FormSubmit erro:", errorData);
+        throw new Error("Falha no envio do formulário");
+      }
 
       toast({ title: "Pedido Enviado!", description: "Recebemos seu pedido e anexos por email. Entraremos em contato em breve!" });
       
