@@ -1,7 +1,7 @@
 import { 
   Pencil, Printer, BookOpen, Backpack, Scissors, Package, Palette, Sparkles, Globe,
   PenTool, Briefcase, Contact, FileImage, Presentation, Utensils, Mail,
-  Monitor, LayoutTemplate, ShoppingCart, Code,
+  Monitor, LayoutTemplate, ShoppingCart, Code, Trophy,
   type LucideIcon 
 } from "lucide-react";
 import canetaEsferograficaImg from "@/assets/canetaesferiografica.png";
@@ -38,6 +38,7 @@ import fitaImg from "@/assets/fita.png";
 import gizDeCeraImg from "@/assets/gizdecera.png";
 import lapisDeCorImg from "@/assets/lapisdecor.png";
 import tintaImg from "@/assets/tinta.png";
+import figurinhasImg from "@/assets/figurinhas.png";
 
 export type Product = {
   name: string;
@@ -51,9 +52,22 @@ export type Category = {
   title: string;
   desc: string;
   products: Product[];
+  featured?: boolean;
+  badge?: string;
 };
 
 export const categories: Category[] = [
+  {
+    slug: "figurinhas-da-copa",
+    icon: Trophy,
+    title: "Figurinhas da Copa",
+    desc: "Álbuns, pacotinhos e figurinhas oficiais da Copa do Mundo",
+    products: [
+      { name: "Figurinhas", image: figurinhasImg }
+    ],
+    featured: true,
+    badge: "Destaque",
+  },
   {
     slug: "escrita",
     icon: Pencil,

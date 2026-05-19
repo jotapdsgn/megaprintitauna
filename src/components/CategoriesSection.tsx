@@ -36,11 +36,16 @@ const CategoriesSection = () => {
             <Link
               key={cat.title}
               to={`/categoria/${cat.slug}`}
-              className={`group bg-card rounded-2xl p-8 shadow-card hover:shadow-card-hover transition-all duration-500 cursor-pointer hover:-translate-y-2 block ${
+              className={`relative group bg-card rounded-2xl p-8 shadow-card hover:shadow-card-hover transition-all duration-500 cursor-pointer hover:-translate-y-2 block ${
                 visible ? "animate-slide-up" : "opacity-0"
-              }`}
+              } ${cat.featured ? "border-2 border-primary/40 ring-4 ring-primary/5 shadow-lg shadow-primary/5" : ""}`}
               style={{ animationDelay: `${i * 0.1}s`, animationFillMode: "forwards" }}
             >
+              {cat.badge && (
+                <span className="absolute top-4 right-4 bg-primary text-primary-foreground text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm animate-pulse z-10">
+                  {cat.badge}
+                </span>
+              )}
               <div className="w-14 h-14 rounded-xl gradient-primary flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
                 <cat.icon className="w-6 h-6 text-primary-foreground" />
               </div>
