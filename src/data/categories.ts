@@ -1,5 +1,5 @@
 import { 
-  Pencil, Printer, BookOpen, Scissors, Package, Palette, Sparkles, Globe,
+  Pencil, Printer, BookOpen, Backpack, Scissors, Package, Palette, Sparkles, Globe,
   PenTool, Briefcase, Contact, FileImage, Presentation, Utensils, Mail,
   Monitor, LayoutTemplate, ShoppingCart, Code,
   type LucideIcon 
@@ -23,6 +23,8 @@ import cadernoBrochuraImg from "@/assets/cadernobrochura.png";
 import agendaImg from "@/assets/agenda.png";
 import blocoDeNotasImg from "@/assets/blocodenotas.png";
 import cadernosImg from "@/assets/cadernos.png";
+import cadernoDeDesenhoImg from "@/assets/cadernodedesenho.png";
+import mochilasImg from "@/assets/mochilas.png";
 import ficharioImg from "@/assets/fichario.png";
 import papelDecoradoImg from "@/assets/papeldecorado.png";
 import tesouraImg from "@/assets/tesoura.png";
@@ -92,9 +94,18 @@ export const categories: Category[] = [
       { name: "Caderno brochura", image: cadernoBrochuraImg },
       { name: "Agenda", image: agendaImg },
       { name: "Fichário", image: ficharioImg },
-      { name: "Caderno de desenho", image: "https://loremflickr.com/400/400/sketchbook,art?random=20" },
+      { name: "Caderno de desenho", image: cadernoDeDesenhoImg },
       { name: "Bloco de notas", image: blocoDeNotasImg },
       { name: "Post-it", image: postitImg }
+    ],
+  },
+  {
+    slug: "mochilas",
+    icon: Backpack,
+    title: "Mochilas",
+    desc: "Mochilas escolares e para o dia a dia",
+    products: [
+      { name: "Mochila", image: mochilasImg },
     ],
   },
   {
