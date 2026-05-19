@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
   ShoppingCart, Trash2, Plus, Minus, X,
-  MessageSquare, Info
+  MessageSquare, Info, Printer, Package
 } from "lucide-react";
 import { useCart } from "@/contexts/CartContext";
 import {
@@ -29,6 +29,16 @@ const CartSidebar = () => {
   const [notes, setNotes] = useState("");
 
   const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+
+  const hasImpressaoItems = useMemo(
+    () => cart.some((item) => item.categorySlug === "impressao"),
+    [cart]
+  );
+
+  const hasProductItems = useMemo(
+    () => cart.some((item) => item.categorySlug !== "impressao"),
+    [cart]
+  );
 
   const getFormattedCartText = () => {
     return cart
@@ -80,9 +90,15 @@ const CartSidebar = () => {
 
     window.open(whatsappUrl, "_blank");
 
+    const toastDescription = hasImpressaoItems && hasProductItems
+      ? "Envie a mensagem e, se for impressão/xerox, anexe os arquivos no chat."
+      : hasImpressaoItems
+        ? "Envie a mensagem e anexe os arquivos da impressão ou xerox no chat."
+        : "Confira a mensagem e envie para finalizar seu pedido.";
+
     toast.success("Abrindo o WhatsApp...", {
-      description: "Confira a mensagem e envie para finalizar seu pedido.",
-      duration: 5000,
+      description: toastDescription,
+      duration: 6000,
       icon: <MessageSquare className="w-5 h-5 text-green-500" />,
     });
 
@@ -235,6 +251,30 @@ const CartSidebar = () => {
                       onChange={(e) => setNotes(e.target.value)}
                       className="rounded-xl border-border focus-visible:ring-primary shadow-sm min-h-[90px] resize-y"
                     />
+                  </div>
+
+                  <div className="space-y-2.5">
+                    {hasImpressaoItems && (
+                      <div className="border border-blue-200 bg-blue-50/80 p-3.5 rounded-2xl flex items-start gap-2.5 text-left text-[11px] text-blue-900 shadow-sm leading-relaxed">
+                        <Printer className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+                        <div>
+                          <strong className="font-bold block mb-0.5">Impressão e xerox</strong>
+                          Após enviar o pedido pelo WhatsApp, envie os arquivos (PDF, Word, imagem etc.)
+                          na mesma conversa para darmos continuidade ao serviço.
+                        </div>
+                      </div>
+                    )}
+
+                    {hasProductItems && (
+                      <div className="border border-primary/25 bg-primary/5 p-3.5 rounded-2xl flex items-start gap-2.5 text-left text-[11px] text-foreground shadow-sm leading-relaxed">
+                        <Package className="w-4 h-4 text-primary shrink-0 mt-0.5" />
+                        <div>
+                          <strong className="font-bold block mb-0.5">Produtos do pedido</strong>
+                          O valor e as opções dos produtos serão enviados por WhatsApp após você
+                          confirmar o envio deste pedido.
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   <Button
