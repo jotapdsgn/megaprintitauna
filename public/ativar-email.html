@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Ativar E-mail Megaprint</title>
+  <style>
+    body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background: #f4f4f4; }
+    .box { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center; }
+    button { background: #e02a82; color: white; border: none; padding: 15px 30px; font-size: 16px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+    button:hover { background: #c01b6a; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>Passo 1: Ativar E-mail no FormSubmit</h2>
+    <p>Para que o site consiga te enviar os pedidos e anexos, você precisa autorizar seu e-mail.</p>
+    <br>
+    <form action="https://formsubmit.co/megaprintitauna@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="Ativação do Sistema de Pedidos - Megaprint">
+      <input type="hidden" name="Mensagem" value="Este é apenas um teste para ativar o recebimento de e-mails do site.">
+      <button type="submit">Ativar megaprintitauna@gmail.com</button>
+    </form>
+  </div>
+</body>
+</html>
