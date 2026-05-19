@@ -1,4 +1,4 @@
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, MessageCircle } from "lucide-react";
 
 const ADDRESS = "R. Altair Gonçalves Franco, 521 - Aeroporto, Itaúna - MG, 35681-029";
 const MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ADDRESS)}`;
@@ -13,9 +13,16 @@ const items = [
   },
   {
     icon: Phone,
-    title: "WhatsApp",
+    title: "WhatsApp (Pedidos)",
     info: "(37) 99862-3827",
     href: "https://wa.me/5537998623827",
+    external: true,
+  },
+  {
+    icon: MessageCircle,
+    title: "WhatsApp (Dúvidas)",
+    info: "(37) 99918-7628",
+    href: "https://wa.me/5537999187628",
     external: true,
   },
   {
@@ -49,7 +56,7 @@ const CTASection = () => {
             Venha nos visitar ou entre em contato. Estamos prontos para atender você!
           </p>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 relative z-10">
             {items.map((item) => {
               const content = (
                 <>
