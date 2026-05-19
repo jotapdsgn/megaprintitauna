@@ -64,7 +64,7 @@ const CategoryPage = () => {
                 </div>
               </div>
               <p className="text-secondary-foreground/80 mt-4 max-w-xl relative z-10">
-                {selectedCategory.desc}. Selecione os produtos e adicione ao seu carrinho.
+                {selectedCategory.desc}. Selecione a quantidade e adicione ao seu carrinho.
               </p>
             </div>
 

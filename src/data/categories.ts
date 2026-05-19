@@ -62,7 +62,7 @@ export const categories: Category[] = [
     slug: "figurinhas-da-copa",
     icon: Trophy,
     title: "Figurinhas da Copa",
-    desc: "Álbuns, pacotinhos e figurinhas oficiais da Copa do Mundo",
+    desc: "Pacotinhos e figurinhas da Copa do Mundo 2026",
     products: [
       { name: "Pacote de Figurinhas", image: figurinhasImg, price: "R$ 7,00" }
     ],
