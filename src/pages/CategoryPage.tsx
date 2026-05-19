@@ -85,7 +85,10 @@ const CategoryPage = () => {
                       ) : null}
                     </div>
                     <div className="p-4 flex flex-col flex-1">
-                      <h3 className="font-semibold text-sm mb-4 flex-1">{p.name}</h3>
+                      <h3 className={`font-semibold text-sm flex-1 ${p.price ? 'mb-1' : 'mb-4'}`}>{p.name}</h3>
+                      {p.price && (
+                        <p className="text-primary font-bold text-sm mb-3">{p.price}</p>
+                      )}
                       <Button 
                         onClick={() => addToCart({
                           categorySlug: selectedCategory.slug,

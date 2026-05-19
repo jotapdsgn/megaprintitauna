@@ -44,6 +44,7 @@ export type Product = {
   name: string;
   image?: string;
   icon?: LucideIcon;
+  price?: string;
 };
 
 export type Category = {
@@ -63,7 +64,7 @@ export const categories: Category[] = [
     title: "Figurinhas da Copa",
     desc: "Álbuns, pacotinhos e figurinhas oficiais da Copa do Mundo",
     products: [
-      { name: "Figurinhas", image: figurinhasImg }
+      { name: "Pacote de Figurinhas", image: figurinhasImg, price: "R$ 7,00" }
     ],
     featured: true,
     badge: "Destaque",
