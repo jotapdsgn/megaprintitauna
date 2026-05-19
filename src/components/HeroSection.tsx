@@ -39,7 +39,7 @@ const pattern = buildPattern();
 
 const HeroSection = () => {
   return (
-    <section id="início" className="relative min-h-screen flex items-center overflow-hidden bg-secondary">
+    <section id="início" className="relative w-full flex items-center overflow-hidden bg-secondary">
       {/* Dark layered background */}
       <div className="absolute inset-0 gradient-hero" />
       <div
@@ -76,7 +76,7 @@ const HeroSection = () => {
       </div>
 
       {/* Content */}
-      <div className="container relative z-10 py-16 md:py-32">
+      <div className="container relative z-10 py-12 md:py-20">
         <div className="max-w-2xl">
           <div className="animate-slide-up">
             <span className="inline-block gradient-primary text-primary-foreground text-[10px] md:text-xs font-semibold uppercase tracking-widest px-3 md:px-4 py-1 md:py-1.5 rounded-full mb-4 md:mb-6 shadow-lg">
@@ -111,12 +111,6 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-float z-10">
-        <div className="w-6 h-10 rounded-full border-2 border-secondary-foreground/40 flex items-start justify-center p-1.5">
-          <div className="w-1.5 h-3 bg-secondary-foreground/60 rounded-full animate-bounce" />
-        </div>
-      </div>
     </section>
   );
 };
