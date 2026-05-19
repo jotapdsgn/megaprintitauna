@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Link, useParams, Navigate } from "react-router-dom";
+import { Link, useParams, Navigate, useNavigate } from "react-router-dom";
 import { ArrowLeft, Plus } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -9,6 +9,7 @@ import { useCart } from "@/contexts/CartContext";
 
 const CategoryPage = () => {
   const { slug } = useParams<{ slug: string }>();
+  const navigate = useNavigate();
   const initial = slug ? getCategoryBySlug(slug) : undefined;
   
   // Optional: keep local state for category switching if we want to change categories without navigating via Router
@@ -21,7 +22,7 @@ const CategoryPage = () => {
   const { addToCart } = useCart();
 
   const handleCategoryChange = (newSlug: string) => {
-    window.location.href = `/categoria/${newSlug}`;
+    navigate(`/categoria/${newSlug}`);
   };
 
   const Icon = selectedCategory.icon;
