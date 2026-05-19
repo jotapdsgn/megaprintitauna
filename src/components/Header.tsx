@@ -64,10 +64,10 @@ const Header = () => {
           </button>
           
           <Link
-            to={isHome ? "#contato" : "/#contato"}
+            to={isHome ? "#produtos" : "/#produtos"}
             className="gradient-primary text-primary-foreground px-6 py-2.5 rounded-full text-sm font-semibold hover:opacity-90 transition-opacity duration-300 hidden md:inline-block"
           >
-            Fale Conosco
+            Fazer pedido
           </Link>
         </div>
       </div>
