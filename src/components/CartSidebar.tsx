@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { ShoppingCart, Plus, Minus, Trash2, Send, File as FileIcon } from "lucide-react";
+import { ShoppingCart, Plus, Minus, Trash2, Send, Mail, File as FileIcon } from "lucide-react";
 import { z } from "zod";
 import {
   Sheet,
@@ -28,6 +28,8 @@ const CartSidebar = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [notes, setNotes] = useState("");
+  const [deliveryOption, setDeliveryOption] = useState<"retirar" | "entrega">("retirar");
+  const [address, setAddress] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   
@@ -46,39 +48,42 @@ const CartSidebar = () => {
       return;
     }
 
+    if (deliveryOption === "entrega" && address.trim().length < 5) {
+      toast({ title: "Endereço inválido", description: "Por favor, informe seu endereço completo para entrega.", variant: "destructive" });
+      return;
+    }
+
     const d = parsed.data;
     setIsSubmitting(true);
 
     try {
-      if (hasImpressao && file) {
-        const formData = new FormData();
-        formData.append("nome", d.name);
-        formData.append("telefone", d.phone);
-        formData.append("anexo", file);
-        formData.append("_subject", `Novo arquivo de impressão de ${d.name}`);
-        formData.append("_captcha", "false");
-        
-        await fetch("https://formsubmit.co/ajax/megaprintitauna@gmail.com", {
-          method: "POST",
-          body: formData,
-        });
-        toast({ title: "Arquivo enviado", description: "Sua imagem foi enviada com sucesso para o nosso email." });
-      }
-
       let orderItemsText = "";
       cart.forEach((item) => {
-        orderItemsText += `• ${item.quantity}x ${item.productName} (${item.categoryTitle})%0A`;
+        orderItemsText += `• ${item.quantity}x ${item.productName} (${item.categoryTitle})\n`;
       });
 
-      const message =
-        `*Novo Pedido - Megaprint*%0A%0A` +
-        `*Nome:* ${encodeURIComponent(d.name)}%0A` +
-        `*Telefone:* ${encodeURIComponent(d.phone)}%0A%0A` +
-        `*Itens do Pedido:*%0A${orderItemsText}%0A` +
-        (d.notes ? `*Observações:* ${encodeURIComponent(d.notes)}%0A` : "") +
-        (hasImpressao && file ? `%0A_(A imagem foi enviada para o email da loja)_` : "");
+      const formData = new FormData();
+      formData.append("Nome", d.name);
+      formData.append("Telefone", d.phone);
+      formData.append("Entrega", deliveryOption === "retirar" ? "Retirar na loja" : `Entrega no endereço: ${address}`);
+      formData.append("Pedido", orderItemsText);
+      if (d.notes) {
+        formData.append("Observações", d.notes);
+      }
+      if (hasImpressao && file) {
+        formData.append("Anexo", file);
+      }
 
-      window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, "_blank");
+      formData.append("_subject", `Novo Pedido de ${d.name}`);
+      formData.append("_captcha", "false");
+      formData.append("_template", "table");
+      
+      await fetch("https://formsubmit.co/ajax/megaprintitauna@gmail.com", {
+        method: "POST",
+        body: formData,
+      });
+
+      toast({ title: "Pedido Enviado!", description: "Recebemos seu pedido e anexos por email. Entraremos em contato em breve!" });
       
       clearCart();
       setNotes("");
@@ -141,6 +146,47 @@ const CartSidebar = () => {
                 <Label htmlFor="phone">Telefone *</Label>
                 <Input id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} required placeholder="(37) 9 9999-9999" />
               </div>
+
+              <div className="space-y-3 pt-2">
+                <Label>Opção de Recebimento</Label>
+                <div className="flex gap-4">
+                  <label className="flex items-center gap-2 text-sm cursor-pointer">
+                    <input 
+                      type="radio" 
+                      name="delivery" 
+                      value="retirar" 
+                      checked={deliveryOption === "retirar"} 
+                      onChange={() => setDeliveryOption("retirar")}
+                      className="accent-primary"
+                    />
+                    Retirar na loja
+                  </label>
+                  <label className="flex items-center gap-2 text-sm cursor-pointer">
+                    <input 
+                      type="radio" 
+                      name="delivery" 
+                      value="entrega" 
+                      checked={deliveryOption === "entrega"} 
+                      onChange={() => setDeliveryOption("entrega")}
+                      className="accent-primary"
+                    />
+                    Receber em casa
+                  </label>
+                </div>
+              </div>
+
+              {deliveryOption === "entrega" && (
+                <div className="space-y-2 animate-in fade-in slide-in-from-top-2">
+                  <Label htmlFor="address">Endereço de Entrega *</Label>
+                  <Input 
+                    id="address" 
+                    value={address} 
+                    onChange={(e) => setAddress(e.target.value)} 
+                    required 
+                    placeholder="Rua, Número, Bairro, Referência..." 
+                  />
+                </div>
+              )}
               
               {hasImpressao && (
                 <div className="space-y-2 p-4 bg-primary/5 rounded-xl border border-primary/10">
@@ -173,7 +219,7 @@ const CartSidebar = () => {
               disabled={isSubmitting}
               className="w-full gap-2 py-6 rounded-xl gradient-primary hover:opacity-90 transition-all duration-300 shadow-lg hover:shadow-primary/25"
             >
-              {isSubmitting ? "Enviando..." : <><Send className="w-4 h-4" /> Finalizar no WhatsApp</>}
+              {isSubmitting ? "Enviando..." : <><Mail className="w-4 h-4" /> Enviar Pedido por E-mail</>}
             </Button>
           </div>
         )}
